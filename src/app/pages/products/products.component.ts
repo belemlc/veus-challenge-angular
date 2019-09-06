@@ -20,6 +20,8 @@ export class ProductsComponent implements OnInit {
   lastPageUrl: string;
   path: string;
   currentPage: number;
+  loading = true;
+  emptyList = true;
 
   constructor(private productService: ProductService) { }
 
@@ -34,9 +36,12 @@ export class ProductsComponent implements OnInit {
   }
 
   async getProducts() {
+    this.loading = true;
     const req: any = await this.productService.get().toPromise();
     this.products = req.data;
     this.paginate(req);
+    this.loading = false;
+    console.log(this.products.length);
   }
 
   paginate(req: any) {
@@ -49,16 +54,20 @@ export class ProductsComponent implements OnInit {
   }
 
   async navigate(page: string) {
+    this.loading = true;
     const req: any = await this.productService.paginate(page).toPromise();
     this.products = req.data;
     this.paginate(req);
+    this.loading = false;
   }
 
   async delete(product: Product) {
     if (confirm(`Remover o produto ${product.name} ?`)) {
+      this.loading = true;
       await this.productService.delete(product.id).toPromise();
       this.products.splice(this.products.indexOf(product), 1);
       alert(`Produto ${product.name} removido com sucesso.`);
+      this.loading = false;
     }
   }
 
@@ -67,6 +76,7 @@ export class ProductsComponent implements OnInit {
       alert('Todos os campos são obrigatórios.');
       return;
     }
+    this.loading = true;
     await this.productService.create(this.productForm.value).toPromise();
     alert('Produto adicionado com sucesso.');
     return this.getProducts();

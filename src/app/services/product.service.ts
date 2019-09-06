@@ -21,6 +21,7 @@ export class ProductService {
   }
 
   async auth() {
+    localStorage.removeItem('token');
     const url = `${this.api}/v1/signin`;
     return await this.http.post(url, this.user).toPromise();
   }

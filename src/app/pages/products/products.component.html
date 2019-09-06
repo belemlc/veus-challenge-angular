@@ -16,6 +16,7 @@
 <header>
   <div class="row pt-5">
     <div class="col-12">
+      <div *ngIf="loading" class="alert alert-info">Carregando dados, aguarde...</div>
       <fieldset>
         <legend>Cadastro de Produtos</legend>
         <form [formGroup]="productForm" (ngSubmit)="submit()">
@@ -73,6 +74,9 @@
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td colspan="5" class="text-center" *ngIf="products?.length < 1"><h6 class="text-danger">Lista de Produtos Vazia</h6></td>
+              </tr>
               <tr *ngFor="let product of products">
                 <th #page scope="row">{{ product.id }}</th>
                 <td>{{ product.name }}</td>
