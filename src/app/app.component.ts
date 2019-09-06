@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProductService } from './services/product.service';
 
 @Component({
   selector: 'veus-root',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'veus-shopping';
+  title = 'Veus Shopping';
+
+  constructor(private productService: ProductService) {
+    this.productService.auth().then((data: any) => localStorage.setItem('token', data.token));
+  }
 }
