@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    container_name: veus_web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+    ports:
+      - "4200:4200"
