@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   api: 'http://localhost:8000/api',
-  user: {email: 'administrador@mail.com', password: 'password'}
+  user: {email: 'user@veus.com', password: 'veus'}
 };
 
 /*
